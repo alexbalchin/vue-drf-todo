@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <table class="table">
+    <table class="table" v-if="items.length">
       <thead>
         <tr>
           <th>Item</th>
           <th>Completed</th>
-          <th>Date Added</th>
+          <th>Date</th>
           <th></th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="input-group">
+    <div class="input-group" v-if="items.length">
       <input
         type="text"
         class="form-input"
@@ -41,6 +41,32 @@
         v-on:click.prevent="add_new()"
         >Add
       </button>
+    </div>
+    <div class="container" v-if="!items.length">
+      <div class="columns">
+        <div class="column col-6 col-lg-12 col-mx-auto">
+          <div class="empty">
+            <div class="empty-icon">
+              <i class="icon icon-emoji"></i>
+            </div>
+            <p class="empty-title h5">You have nothing to do</p>
+            <p class="empty-subtitle">Add a new todo item to start.</p>
+            <div class="empty-action">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="text_field"
+                  v-on:keyup.enter="add_new()">
+                <button
+                  class="btn btn-primary input-group-btn"
+                  @click.prevent="add_new()"
+                  >Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
